@@ -1,0 +1,26 @@
+# .nixpacks.toml
+
+# 1) Fase de install: compila el backend y prepara el frontend
+[phases.install]
+commands = [
+  "cd backend && mvn clean install -DskipTests",
+  "cd frontend && npm install"
+]
+
+# 2) Fase de build: empaqueta el backend y genera el build estático del frontend
+[phases.build]
+commands = [
+  "cd backend && mvn package -DskipTests",
+  "cd frontend && npm run build"
+]
+
+# 3) Monta el JAR resultante en la raíz de la imagen
+[[mounts]]
+source = "backend/target/*.jar"
+target = "/app.jar"
+
+# 4) Declara el servicio: puerto expuesto y comando de arranque
+[[services]]
+port = 8085
+command = "java -jar /app.jar"
+
