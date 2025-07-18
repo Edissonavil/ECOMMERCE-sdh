@@ -1,0 +1,16 @@
+# Java build folders
+**/target/
+
+# Node
+**/node_modules/
+
+# logs
+*.log
+
+# Spring Boot external configs
+application-*.properties
+application-*.yml
+
+# Uploads folder
+**/uploads/
+
